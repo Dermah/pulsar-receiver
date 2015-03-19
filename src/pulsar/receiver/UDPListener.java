@@ -18,10 +18,12 @@ public class UDPListener implements Runnable {
   public UDPListener () {
     openDatagramSocket();
     queue = new ArrayList<JSONObject>();
+    (new Thread(this)).start();
   }
   
   private void openDatagramSocket() {
     int port = 6660;
+    System.out.println("Opening datagram socket on port " + port);
     try {
       datagramSocket = new DatagramSocket(port);
     } catch (SocketException e) {
@@ -34,6 +36,8 @@ public class UDPListener implements Runnable {
     byte[] buffer = new byte[1024];
     DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
 
+    System.out.println("Pulse recieved. Processing...");
+    
     try {
       datagramSocket.receive(packet);
     } catch (IOException e) {
