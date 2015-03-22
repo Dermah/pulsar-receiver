@@ -18,6 +18,7 @@ public class Processor {
   public Processor(PApplet p, DrawingManager dM, Config config) {
     this.p = p;
     this.dM = dM;
+    this.config = config;
   }
   
   
