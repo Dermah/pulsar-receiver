@@ -27,6 +27,8 @@ public class GitHubAvatar implements Drawing {
   
   private JSONObject pulse;
   
+  private int delay;
+  
   
   @Override
   public void setup (PApplet p, JSONObject pulse, Config config) {
@@ -42,7 +44,7 @@ public class GitHubAvatar implements Drawing {
       g = p.random(255);
       b = p.random(255);
       user = this.pulse.getString("User");
-
+      delay = (int) (compNo * p.frameRate);
     } else {
       done = true;
     }
@@ -51,7 +53,9 @@ public class GitHubAvatar implements Drawing {
   @Override
   public void draw () {
     if (webImg != null) {
-      if (boxSize <= (webImg.height + 100)) {
+      if (delay >= 0) {
+        delay--;
+      } else if (boxSize <= (webImg.height + 100)) {
         boxSize += (webImg.height + 100 - boxSize)/4 + 1;
         p.rectMode(PConstants.CENTER);
         p.fill(r, g, b);
