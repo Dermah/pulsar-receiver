@@ -7,11 +7,13 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import processing.core.PApplet;
+import pulsar.receiver.drawing.Drawing;
 
 public class Processor {
+  private DrawingManager dM;
   
-  public Processor() {
-    
+  public Processor(DrawingManager dM) {
+    this.dM = dM;
   }
   
   
@@ -25,6 +27,8 @@ public class Processor {
       Class<?> drawingClass = Class.forName("pulsar.receiver.drawing." + pulse.getString("Name"));
       Constructor<?> constructor = drawingClass.getConstructor();
       Object instance = constructor.newInstance();
+      Drawing drawing = (Drawing) instance;
+      dM.addDrawing(drawing);
     } catch (ClassNotFoundException e) {
       System.out.println("Could not load drawing class");
       e.printStackTrace();

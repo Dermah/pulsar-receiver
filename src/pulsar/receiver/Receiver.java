@@ -1,17 +1,17 @@
 package pulsar.receiver;
 
-import org.json.JSONObject;
-
 import processing.core.*;
 
 public class Receiver extends PApplet {
 
   private UDPListener listener;
   private Processor processor;
+  private DrawingManager dM;
   
   public void setup () {
     listener = new UDPListener();
-    processor = new Processor();
+    dM = new DrawingManager(this);
+    processor = new Processor(dM);
     
     size(displayWidth, displayHeight);
     background(0);
