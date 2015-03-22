@@ -10,10 +10,15 @@ import java.util.ArrayList;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/* Runs as a thread and listens for Pulsar
+ * packets in JSON format on a port.
+ * Simply construct this class to get it going
+ * Makes a queue of JSONObjects available for consumption
+ */
 public class UDPListener implements Runnable {
   
   private DatagramSocket datagramSocket;
-  private ArrayList<JSONObject> queue;
+  public ArrayList<JSONObject> queue;
   
   public UDPListener () {
     openDatagramSocket();
@@ -32,6 +37,12 @@ public class UDPListener implements Runnable {
     }
   }
   
+  /* 
+   * Blocks the thread waiting for a packet to arrive
+   * Then processes the string that arrived and adds it to
+   * the queue if it turns out to be a Pulsar packet.
+   * Returns nothing if any of these things fail` 
+   */
   private void listen() {
     byte[] buffer = new byte[1024];
     DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
