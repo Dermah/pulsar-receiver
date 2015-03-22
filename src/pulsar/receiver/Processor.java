@@ -29,7 +29,7 @@ public class Processor {
       Constructor<?> constructor = drawingClass.getConstructor();
       Object instance = constructor.newInstance();
       Drawing drawing = (Drawing) instance;
-      dM.addDrawing(drawing);
+      dM.addDrawing(drawing, pulse);
     } catch (JSONException e) {
       System.out.println("Error reading recieved JSON packet");
       e.printStackTrace();

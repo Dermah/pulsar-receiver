@@ -3,6 +3,8 @@ package pulsar.receiver;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import org.json.JSONObject;
+
 import processing.core.PApplet;
 import pulsar.receiver.drawing.Drawing;
 
@@ -15,9 +17,9 @@ public class DrawingManager {
     queue = new ArrayList<Drawing>();
   }
   
-  public void addDrawing (Drawing d) {
+  public void addDrawing (Drawing d, JSONObject pulse) {
     if (d != null) {
-      d.setup(p);
+      d.setup(p, pulse);
       queue.add(d);
     }
   }

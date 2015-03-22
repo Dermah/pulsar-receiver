@@ -1,9 +1,11 @@
 package pulsar.receiver.drawing;
 
+import org.json.JSONObject;
+
 import processing.core.PApplet;
 
 public interface Drawing {
-  void setup(PApplet p);
+  void setup(PApplet p, JSONObject pulse);
   
   // called every frame to actually draw the animation
   void draw();
