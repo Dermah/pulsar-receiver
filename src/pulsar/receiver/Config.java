@@ -40,6 +40,12 @@ public class Config {
     }
     
     config = new JSONObject(file);
+    System.out.println("Read config from " + path + ":");
+    System.out.println(config.toString(2));
+  }
+  
+  public int getInt (String key) {
+    return config.getInt(key);
   }
   
 }
