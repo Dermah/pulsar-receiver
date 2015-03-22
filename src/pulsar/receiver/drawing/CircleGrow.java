@@ -1,5 +1,7 @@
 package pulsar.receiver.drawing;
 
+import org.json.JSONObject;
+
 import processing.core.PApplet;
 
 public class CircleGrow implements Drawing {
@@ -12,7 +14,7 @@ public class CircleGrow implements Drawing {
   }
 
   @Override
-  public void setup(PApplet p) {
+  public void setup(PApplet p, JSONObject pulse) {
     this.p = p;
     x = (int) p.random(100, p.displayWidth-100); 
     y = (int) p.random(100, p.displayHeight-100);
