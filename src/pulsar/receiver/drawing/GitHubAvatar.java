@@ -21,6 +21,8 @@ public class GitHubAvatar implements Drawing {
   private int framesLeft = 255;
   private boolean done = false;
   
+  private String user;
+  
   @Override
   public void setup (PApplet p, JSONObject pulse) {
     this.p = p;
@@ -30,6 +32,7 @@ public class GitHubAvatar implements Drawing {
     r = p.random(255);
     g = p.random(255);
     b = p.random(255);
+    user = pulse.getString("User");
   }
 
   @Override
@@ -49,6 +52,12 @@ public class GitHubAvatar implements Drawing {
         p.rect(p.displayWidth/2, p.displayHeight/2, boxSize, boxSize);
         p.image(webImg, p.displayWidth/2, p.displayHeight/2);
         
+        p.textAlign(PConstants.CENTER);
+        p.textMode(PConstants.CENTER);
+        p.textSize(50);
+        p.fill(255, 255, 255, fade);
+        p.text(user, p.displayWidth/2, p.displayHeight/2 + boxSize/2 + 50);
+        
         if (fade <= 255) {
           fade += 5;
         } else {
@@ -64,6 +73,12 @@ public class GitHubAvatar implements Drawing {
         
         p.rect(p.displayWidth/2, p.displayHeight/2, boxSize, boxSize);
         p.image(webImg, p.displayWidth/2, p.displayHeight/2);
+        
+        p.textAlign(PConstants.CENTER);
+        p.textMode(PConstants.CENTER);
+        p.textSize(50);
+        p.fill(255, 255, 255, fade);
+        p.text(user, p.displayWidth/2, p.displayHeight/2 + boxSize/2 + 50);
         
         if (fade >= 255) {
           done = true;
