@@ -13,6 +13,7 @@ public class Receiver extends PApplet {
     dM = new DrawingManager(this);
     processor = new Processor(dM);
     
+    frameRate(30);
     size(displayWidth, displayHeight);
     background(0);
   }
