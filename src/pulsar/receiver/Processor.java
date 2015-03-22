@@ -16,6 +16,7 @@ public class Processor {
   
   public Processor(DrawingManager dM, Config config) {
     this.dM = dM;
+    this.config = config;
   }
   
   

@@ -44,7 +44,7 @@ public class UDPListener implements Runnable {
    * Returns nothing if any of these things fail` 
    */
   private void listen() {
-    byte[] buffer = new byte[1024];
+    byte[] buffer = new byte[1024*2];
     DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
     
     try {
