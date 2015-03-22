@@ -19,10 +19,12 @@ public class Processor {
     JSONArray pulses = packet.getJSONArray("Pulses");
     JSONObject pulse = pulses.getJSONObject(0);
     
+    // Based on the name of the pulse, try and load a drawing class named the same thing 
     try {
-      Class<?> drawingClass = Class.forName("pulsar.receiver.UDPListener");
-      Constructor<?> constructor = drawingClass.getConstructor(String.class, Integer.class);
-      Object instance = constructor.newInstance("stringparam", 42);
+      // Stolen from http://stackoverflow.com/questions/9886266/is-there-a-way-to-instantiate-a-class-by-name-in-java
+      Class<?> drawingClass = Class.forName("pulsar.receiver.drawing." + pulse.getString("Name"));
+      Constructor<?> constructor = drawingClass.getConstructor();
+      Object instance = constructor.newInstance();
     } catch (ClassNotFoundException e) {
       System.out.println("Could not load drawing class");
       e.printStackTrace();
@@ -41,6 +43,6 @@ public class Processor {
     } catch (InvocationTargetException e) {
       System.out.println("An error occured while making an instance of the drawing class");
       e.printStackTrace();
-    } 
+    }
   }
 }
