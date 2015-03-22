@@ -18,10 +18,14 @@ public class Receiver extends PApplet {
   }
 
   public void draw () {
+    background(0);
+    
 	  while (!listener.queue.isEmpty()) {
       processor.process(this, listener.queue.remove(0));
       
     }
+	  
+	  dM.draw();
   }
 
   public static void main (String[] args) {
