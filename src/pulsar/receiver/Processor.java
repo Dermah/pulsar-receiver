@@ -4,6 +4,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import processing.core.PApplet;
@@ -29,6 +30,9 @@ public class Processor {
       Object instance = constructor.newInstance();
       Drawing drawing = (Drawing) instance;
       dM.addDrawing(drawing);
+    } catch (JSONException e) {
+      System.out.println("Error reading recieved JSON packet");
+      e.printStackTrace();
     } catch (ClassNotFoundException e) {
       System.out.println("Could not load drawing class");
       e.printStackTrace();
