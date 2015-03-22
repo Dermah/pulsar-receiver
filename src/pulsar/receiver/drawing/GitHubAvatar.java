@@ -1,10 +1,12 @@
 package pulsar.receiver.drawing;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PImage;
+import pulsar.receiver.Config;
 
 public class GitHubAvatar implements Drawing {
 
@@ -23,16 +25,27 @@ public class GitHubAvatar implements Drawing {
   
   private String user;
   
+  private JSONObject pulse;
+  
+  
   @Override
-  public void setup (PApplet p, JSONObject pulse) {
-    this.p = p;
-    String url = pulse.getString("AvatarUrl");
-    // Load image from a web server
-    webImg = p.loadImage(url, "png");
-    r = p.random(255);
-    g = p.random(255);
-    b = p.random(255);
-    user = pulse.getString("User");
+  public void setup (PApplet p, JSONObject pulse, Config config) {
+    JSONArray users = pulse.getJSONArray("Users");
+    int compNo = config.getInt("computer");
+    if (compNo <= pulse.getJSONArray("Users").length()) {
+      this.pulse = users.getJSONObject(compNo);
+      this.p = p;
+      String url = this.pulse.getString("AvatarUrl");
+      // Load image from a web server
+      webImg = p.loadImage(url, "png");
+      r = p.random(255);
+      g = p.random(255);
+      b = p.random(255);
+      user = this.pulse.getString("User");
+
+    } else {
+      done = true;
+    }
   }
 
   @Override
