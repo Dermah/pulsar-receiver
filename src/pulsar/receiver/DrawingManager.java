@@ -17,9 +17,9 @@ public class DrawingManager {
     queue = new ArrayList<Drawing>();
   }
   
-  public void addDrawing (Drawing d, JSONObject pulse) {
+  public void addDrawing (Drawing d, JSONObject pulse, Config config) {
     if (d != null) {
-      d.setup(p, pulse);
+      d.setup(p, pulse, config);
       queue.add(d);
     }
   }
