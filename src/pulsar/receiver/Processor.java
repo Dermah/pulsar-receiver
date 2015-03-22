@@ -12,8 +12,9 @@ import pulsar.receiver.drawing.Drawing;
 
 public class Processor {
   private DrawingManager dM;
+  private Config config;
   
-  public Processor(DrawingManager dM) {
+  public Processor(DrawingManager dM, Config config) {
     this.dM = dM;
   }
   
@@ -29,7 +30,7 @@ public class Processor {
       Constructor<?> constructor = drawingClass.getConstructor();
       Object instance = constructor.newInstance();
       Drawing drawing = (Drawing) instance;
-      dM.addDrawing(drawing, pulse);
+      dM.addDrawing(drawing, pulse, config);
     } catch (JSONException e) {
       System.out.println("Error reading recieved JSON packet");
       e.printStackTrace();

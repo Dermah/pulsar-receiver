@@ -4,6 +4,7 @@ import processing.core.*;
 
 public class Receiver extends PApplet {
 
+  private Config config;
   private UDPListener listener;
   private Processor processor;
   private DrawingManager dM;
@@ -11,8 +12,14 @@ public class Receiver extends PApplet {
   public void setup () {
     listener = new UDPListener();
     dM = new DrawingManager(this);
-    processor = new Processor(dM);
+
+    config = new Config();
+    config.loadConfig("pulsar.json");
     
+    processor = new Processor(dM, config);
+    
+    
+    frameRate(30);
     size(displayWidth, displayHeight);
     background(0);
   }
