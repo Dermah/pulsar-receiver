@@ -46,11 +46,10 @@ public class UDPListener implements Runnable {
   private void listen() {
     byte[] buffer = new byte[1024];
     DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
-
-    System.out.println("Pulse recieved. Processing...");
     
     try {
       datagramSocket.receive(packet);
+      System.out.println("Pulse recieved. Processing...");
     } catch (IOException e) {
       System.out.println("Failed while recieving a datagram packet");
       e.printStackTrace();

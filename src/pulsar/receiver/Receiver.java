@@ -7,9 +7,11 @@ import processing.core.*;
 public class Receiver extends PApplet {
 
   private UDPListener listener;
+  private Processor processor;
   
   public void setup () {
     listener = new UDPListener();
+    processor = new Processor();
     
     size(displayWidth, displayHeight);
     background(0);
@@ -17,7 +19,7 @@ public class Receiver extends PApplet {
 
   public void draw () {
 	  while (!listener.queue.isEmpty()) {
-      
+      processor.process(this, listener.queue.remove(0));
       
     }
   }
