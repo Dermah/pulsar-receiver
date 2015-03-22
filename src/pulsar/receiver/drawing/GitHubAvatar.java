@@ -11,7 +11,15 @@ public class GitHubAvatar implements Drawing {
   private PApplet p;
   private PImage webImg;
   
+  private float r;
+  private float g;
+  private float b;
   
+  private int boxSize = 0;
+  private int fade = 0;
+  
+  private int framesLeft = 255;
+  private boolean done = false;
   
   @Override
   public void setup (PApplet p, JSONObject pulse) {
@@ -19,25 +27,54 @@ public class GitHubAvatar implements Drawing {
     String url = pulse.getString("AvatarUrl");
     // Load image from a web server
     webImg = p.loadImage(url, "png");
-    System.out.println("loading");
+    r = p.random(255);
+    g = p.random(255);
+    b = p.random(255);
   }
 
   @Override
   public void draw () {
     if (webImg != null) {
-      p.imageMode(PConstants.CENTER);
-      p.rectMode(PConstants.CENTER);
-      p.fill(127, 255, 231);
-      
-      p.rect(p.displayWidth/2, p.displayHeight/2, webImg.width + 100, webImg.height + 100);
-      p.image(webImg, p.displayWidth/2, p.displayHeight/2);
+      if (boxSize <= (webImg.height + 100)) {
+        boxSize += (webImg.height + 100 - boxSize)/4 + 1;
+        p.rectMode(PConstants.CENTER);
+        p.fill(r, g, b);
+        p.rect(p.displayWidth/2, p.displayHeight/2, boxSize, boxSize);
+      } else if (framesLeft >= 0) {
+        p.imageMode(PConstants.CENTER);
+        p.rectMode(PConstants.CENTER);
+        p.tint(255, fade);
+        p.fill(r, g, b);
+        
+        p.rect(p.displayWidth/2, p.displayHeight/2, boxSize, boxSize);
+        p.image(webImg, p.displayWidth/2, p.displayHeight/2);
+        
+        if (fade <= 255) {
+          fade += 5;
+        } else {
+          framesLeft --;
+        }
+      } else {
+        fade -= 15;
+        
+        p.imageMode(PConstants.CENTER);
+        p.rectMode(PConstants.CENTER);
+        p.tint(255, fade);
+        p.fill(r, g, b, fade);
+        
+        p.rect(p.displayWidth/2, p.displayHeight/2, boxSize, boxSize);
+        p.image(webImg, p.displayWidth/2, p.displayHeight/2);
+        
+        if (fade >= 255) {
+          done = true;
+        }
+      }
     }
   }
 
   @Override
   public boolean destroyable () {
-    // TODO Auto-generated method stub
-    return false;
+    return done;
   }
 
 }
