@@ -16,7 +16,7 @@ public class Receiver extends PApplet {
     config = new Config();
     config.loadConfig("pulsar.json");
     
-    processor = new Processor(dM, config);
+    processor = new Processor(this, dM, config);
     
     
     frameRate(30);
@@ -28,8 +28,7 @@ public class Receiver extends PApplet {
     background(0);
     
 	  while (!listener.queue.isEmpty()) {
-      processor.process(this, listener.queue.remove(0));
-      
+      processor.process(listener.queue.remove(0));
     }
 	  
 	  dM.draw();

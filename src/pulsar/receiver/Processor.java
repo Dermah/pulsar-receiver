@@ -11,15 +11,17 @@ import processing.core.PApplet;
 import pulsar.receiver.drawing.Drawing;
 
 public class Processor {
+  private PApplet p;
   private DrawingManager dM;
   private Config config;
   
-  public Processor(DrawingManager dM, Config config) {
+  public Processor(PApplet p, DrawingManager dM, Config config) {
+    this.p = p;
     this.dM = dM;
   }
   
   
-  public void process (PApplet p, JSONObject packet) { 
+  public void process (JSONObject packet) { 
     JSONArray pulses = packet.getJSONArray("Pulses");
     JSONObject pulse = pulses.getJSONObject(0);
     
